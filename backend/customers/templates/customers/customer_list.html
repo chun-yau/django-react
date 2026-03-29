@@ -1,0 +1,63 @@
+{% extends "customers/base.html" %}
+{% block title %}Customers{% endblock %}
+
+{% block content %}
+
+<!--
+  Learning notes — customer_list view (GET /customers/)
+  ─────────────────────────────────────────────────────
+  Traditional Django: the view fetches Customer.objects.all() and passes it
+  as context.  We loop over it here with {# for ... in ... #}.
+
+  In the React app the same data comes from a fetch/Axios call to
+  GET /api/customers/ which returns the same queryset as JSON.
+-->
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Customers <span class="badge bg-secondary">{{ customers.count }}</span></h2>
+  <a href="{% url 'customers:customer_create' %}" class="btn btn-primary">+ New Customer</a>
+</div>
+
+<div class="note-box mb-3">
+  <strong>📖 Learning tip:</strong>
+  Open <a href="/api/customers/" target="_blank">/api/customers/</a> in a new tab
+  to see the same data returned as JSON by the DRF API.
+</div>
+
+{% if customers %}
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Company</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for customer in customers %}
+        <tr>
+          <td>
+            <a href="{% url 'customers:customer_detail' customer.pk %}">{{ customer.name }}</a>
+          </td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.company }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>
+            <a href="{% url 'customers:customer_update' customer.pk %}"
+               class="btn btn-sm btn-outline-secondary">Edit</a>
+            <a href="{% url 'customers:customer_delete' customer.pk %}"
+               class="btn btn-sm btn-outline-danger">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-info">
+    No customers yet. <a href="{% url 'customers:customer_create' %}">Add one!</a>
+  </div>
+{% endif %}
+
+{% endblock %}
