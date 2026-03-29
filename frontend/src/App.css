@@ -1,0 +1,345 @@
+/*
+ * App.css — Application styles
+ *
+ * Learning notes
+ * ──────────────
+ * This is plain CSS — no framework.  Keep it simple while you focus on
+ * learning React and DRF.  You can swap this for Bootstrap, Tailwind, or
+ * any CSS-in-JS solution later without changing the React components at all.
+ */
+
+/* ── Reset & base ────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1a1a2e;
+  background: #f0f4f8;
+}
+
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.875em;
+  background: #e8eef7;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+/* ── App shell (3-column layout) ─────────────────────────────────────────── */
+
+.app-shell {
+  display: grid;
+  grid-template-areas:
+    "nav  nav  nav"
+    "main main side";
+  grid-template-columns: 1fr 1fr 300px;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+}
+
+/* ── Navigation bar ──────────────────────────────────────────────────────── */
+
+.top-nav {
+  grid-area: nav;
+  background: #1e3a5f;
+  color: white;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 56px;
+}
+
+.brand {
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.nav-links a,
+.nav-links .active { color: #a8c4e0; font-size: 0.9rem; }
+.nav-links a:hover { color: white; text-decoration: none; }
+.nav-links .active { color: white; font-weight: 600; }
+
+/* ── Main content ────────────────────────────────────────────────────────── */
+
+.main-content {
+  grid-area: main;
+  padding: 1.75rem 2rem;
+  max-width: 900px;
+}
+
+/* ── Learning sidebar ────────────────────────────────────────────────────── */
+
+.learn-sidebar {
+  grid-area: side;
+  background: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  padding: 1.25rem;
+  font-size: 0.82rem;
+  overflow-y: auto;
+}
+
+.learn-sidebar h4 {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #92400e;
+}
+
+.learn-sidebar p  { margin-bottom: 0.6rem; color: #555; }
+.learn-sidebar ul { padding-left: 0; list-style: none; }
+.learn-sidebar li { margin-bottom: 0.75rem; }
+.learn-sidebar hr { border: none; border-top: 1px solid #fcd34d; margin: 0.75rem 0; }
+
+.concept-dl { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.6rem; }
+.concept-dl dt { font-weight: 600; color: #92400e; }
+.concept-dl dd { color: #555; margin: 0; }
+
+/* ── Learning tip box (inside components) ────────────────────────────────── */
+
+.learn-box {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 1.25rem;
+  color: #1e40af;
+}
+
+/* ── Breadcrumb ──────────────────────────────────────────────────────────── */
+
+.breadcrumb {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+.breadcrumb a { color: #2563eb; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #374151;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn:hover { background: #f9fafb; text-decoration: none; }
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  border-color: #1d4ed8;
+}
+.btn-primary:hover { background: #1d4ed8; color: white; }
+.btn-primary:disabled { background: #93c5fd; border-color: #93c5fd; cursor: not-allowed; }
+
+.btn-danger  { background: #dc2626; color: white; border-color: #b91c1c; }
+.btn-danger:hover { background: #b91c1c; color: white; }
+
+.btn-sm { padding: 0.25rem 0.65rem; font-size: 0.8rem; }
+
+/* ── Status / empty messages ─────────────────────────────────────────────── */
+
+.status { padding: 1rem; color: #6b7280; font-style: italic; }
+.status.error { color: #dc2626; font-style: normal; background: #fef2f2; border-radius: 6px; }
+
+/* ── Customer list ───────────────────────────────────────────────────────── */
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.list-header h2 { font-size: 1.5rem; }
+
+.badge {
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.list-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.search-input {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  width: 220px;
+}
+.search-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px #bfdbfe; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+}
+
+th {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  background: #1e3a5f;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f9fafb; }
+
+td.actions { display: flex; gap: 0.4rem; }
+
+/* ── Customer detail card ────────────────────────────────────────────────── */
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: #1e3a5f;
+  color: white;
+}
+
+.card-header h3 { font-size: 1.2rem; margin: 0; }
+.card-header .actions { display: flex; gap: 0.5rem; }
+
+.detail-list {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0;
+  padding: 0.5rem 1.25rem;
+}
+
+.detail-list dt {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-list dd {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f3f4f6;
+  margin: 0;
+}
+
+.detail-list dt:last-of-type,
+.detail-list dd:last-of-type { border-bottom: none; }
+
+.detail-list .notes { white-space: pre-wrap; }
+
+/* ── Customer form ───────────────────────────────────────────────────────── */
+
+.customer-form {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  max-width: 560px;
+}
+
+.customer-form h2 { margin-bottom: 1.25rem; font-size: 1.25rem; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.required { color: #dc2626; }
+
+.form-group input,
+.form-group textarea {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px #bfdbfe;
+}
+
+.field-error { font-size: 0.8rem; color: #dc2626; }
+.global-error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}

@@ -1,0 +1,31 @@
+{% extends "customers/base.html" %}
+{% block title %}Delete {{ customer.name }}?{% endblock %}
+
+{% block content %}
+
+<!--
+  Learning notes — customer_delete view
+  ──────────────────────────────────────
+  Traditional Django: a separate confirmation page rendered via GET; the
+  actual DELETE happens on POST.
+  DRF / React: React shows a confirmation dialog in the browser (no page
+  navigation required) then sends DELETE /api/customers/<pk>/.
+-->
+
+<div class="card border-danger" style="max-width: 500px;">
+  <div class="card-header bg-danger text-white">
+    <h5 class="mb-0">Confirm Delete</h5>
+  </div>
+  <div class="card-body">
+    <p>Are you sure you want to delete <strong>{{ customer.name }}</strong>?</p>
+    <p class="text-muted small">This action cannot be undone.</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes, delete</button>
+      <a href="{% url 'customers:customer_detail' customer.pk %}"
+         class="btn btn-outline-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
