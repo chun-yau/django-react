@@ -4,7 +4,7 @@ A hands-on learning project that builds a simple Customer CRM using:
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| Backend | **Django 6** | Models, traditional HTML views, admin |
+| Backend | **Django 5.2** | Models, traditional HTML views, admin |
 | API | **Django REST Framework (DRF)** | JSON API consumed by React |
 | Frontend | **React 19 + Vite** | Single-Page Application (SPA) |
 | HTTP client | **Axios** | Fetch data from the DRF API |
